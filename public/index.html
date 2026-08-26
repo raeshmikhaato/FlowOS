@@ -274,9 +274,9 @@
                         YOUR WORKSPACE
                     </p>
 
-                    <h1>
-                        Good evening.
-                    </h1>
+                    <h1 id="dashboard-greeting">
+    Good evening.
+</h1>
 
                     <p class="dashboard-subtitle">
                         Here's what your day looks like.
@@ -844,7 +844,64 @@
     <script src="theme.js"></script>
     <script src="dashboard.js?v=3"></script>
     <script src="navigation.js"></script>
+    <script>
+document.addEventListener("DOMContentLoaded", async () => {
 
+    const greetingElement =
+        document.getElementById("dashboard-greeting");
+
+    if (!greetingElement) {
+        return;
+    }
+
+    try {
+
+        const response = await fetch(
+            "/api/auth/me",
+            {
+                method: "GET",
+                credentials: "include"
+            }
+        );
+
+        if (!response.ok) {
+            return;
+        }
+
+        const data = await response.json();
+
+        const user = data.user;
+
+        if (!user || !user.name) {
+            return;
+        }
+
+        const hour = new Date().getHours();
+
+        let greeting;
+
+        if (hour < 12) {
+            greeting = "Good morning";
+        } else if (hour < 18) {
+            greeting = "Good afternoon";
+        } else {
+            greeting = "Good evening";
+        }
+
+        greetingElement.textContent =
+            `${greeting}, ${user.name}.`;
+
+    } catch (error) {
+
+        console.error(
+            "Unable to load account information:",
+            error
+        );
+
+    }
+
+});
+</script>
 </body>
 
 </html>

@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Create Account — FlowOS</title>
+
+    <link
+        rel="stylesheet"
+        href="/style.css"
+    >
+
+    <style>
+
+        .flowos-auth-page {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            box-sizing: border-box;
+        }
+
+        .flowos-auth-card {
+            width: 100%;
+            max-width: 420px;
+            padding: 40px;
+            box-sizing: border-box;
+            border-radius: 24px;
+            background: var(
+                --card-bg,
+                #ffffff
+            );
+            border: 1px solid var(
+                --border-color,
+                #e5e7eb
+            );
+            box-shadow:
+                0 24px 60px
+                rgba(0, 0, 0, 0.08);
+        }
+
+        .flowos-auth-brand {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .flowos-auth-brand h1 {
+            margin: 0 0 8px;
+            font-size: 30px;
+        }
+
+        .flowos-auth-brand p {
+            margin: 0;
+            color: var(
+                --text-secondary,
+                #6b7280
+            );
+        }
+
+        .flowos-auth-field {
+            margin-bottom: 18px;
+        }
+
+        .flowos-auth-field label {
+            display: block;
+            margin-bottom: 7px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .flowos-auth-field input {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 13px 14px;
+            border-radius: 10px;
+            border: 1px solid var(
+                --border-color,
+                #d1d5db
+            );
+            background: var(
+                --input-bg,
+                #ffffff
+            );
+            color: var(
+                --text-primary,
+                #111827
+            );
+            font-size: 15px;
+            outline: none;
+        }
+
+        .flowos-auth-field input:focus {
+            border-color: #6366f1;
+            box-shadow:
+                0 0 0 3px
+                rgba(99, 102, 241, 0.12);
+        }
+
+        .flowos-auth-field small {
+            display: block;
+            margin-top: 6px;
+            color: var(
+                --text-secondary,
+                #6b7280
+            );
+        }
+
+        .flowos-auth-submit {
+            width: 100%;
+            border: 0;
+            border-radius: 10px;
+            padding: 13px 16px;
+            background: #6366f1;
+            color: white;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .flowos-auth-submit:hover {
+            opacity: 0.92;
+        }
+
+        .flowos-auth-error {
+            margin: 0 0 16px;
+            padding: 11px 13px;
+            border-radius: 10px;
+            background: #fef2f2;
+            color: #b91c1c;
+            font-size: 14px;
+        }
+
+        .flowos-auth-switch {
+            text-align: center;
+            margin: 22px 0 0;
+            color: var(
+                --text-secondary,
+                #6b7280
+            );
+            font-size: 14px;
+        }
+
+        .flowos-auth-switch a {
+            color: #6366f1;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <main class="flowos-auth-page">
+
+        <section class="flowos-auth-card">
+
+            <div class="flowos-auth-brand">
+
+                <h1>Create your account</h1>
+
+                <p>
+                    Start organizing your work with FlowOS.
+                </p>
+
+            </div>
+
+            <form id="registerForm">
+
+                <div class="flowos-auth-field">
+
+                    <label for="name">
+                        Name
+                    </label>
+
+                    <input
+                        id="name"
+                        type="text"
+                        autocomplete="name"
+                        required
+                    >
+
+                </div>
+
+                <div class="flowos-auth-field">
+
+                    <label for="email">
+                        Email
+                    </label>
+
+                    <input
+                        id="email"
+                        type="email"
+                        autocomplete="email"
+                        required
+                    >
+
+                </div>
+
+                <div class="flowos-auth-field">
+
+                    <label for="password">
+                        Password
+                    </label>
+
+                    <input
+                        id="password"
+                        type="password"
+                        autocomplete="new-password"
+                        minlength="8"
+                        required
+                    >
+
+                    <small>
+                        Minimum 8 characters.
+                    </small>
+
+                </div>
+
+                <div
+                    id="registerError"
+                    class="flowos-auth-error"
+                    hidden
+                ></div>
+
+                <button
+                    class="flowos-auth-submit"
+                    type="submit"
+                >
+                    Create account
+                </button>
+
+            </form>
+
+            <p class="flowos-auth-switch">
+
+                Already have an account?
+
+                <a href="/login">
+                    Log in
+                </a>
+
+            </p>
+
+        </section>
+
+    </main>
+
+    <script src="/register.js"></script>
+
+</body>
+
+</html>

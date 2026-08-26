@@ -22,6 +22,116 @@
         href="settings.css"
     >
 
+    <style>
+
+        /* ========================================
+           ACCOUNT INFORMATION
+        ======================================== */
+
+        .account-info {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            width: 100%;
+        }
+
+        .account-profile {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .account-avatar {
+            width: 48px;
+            height: 48px;
+            min-width: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #6366f1;
+            color: #ffffff;
+            font-size: 18px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .account-details {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .account-name {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(
+                --text-primary,
+                #111827
+            );
+        }
+
+        .account-email {
+            font-size: 13px;
+            color: var(
+                --text-secondary,
+                #6b7280
+            );
+        }
+
+        .account-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            width: fit-content;
+            padding: 6px 10px;
+            border-radius: 999px;
+            background: rgba(
+                34,
+                197,
+                94,
+                0.10
+            );
+            color: #16a34a;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .account-status-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: #22c55e;
+        }
+
+        .account-loading {
+            font-size: 14px;
+            color: var(
+                --text-secondary,
+                #6b7280
+            );
+        }
+
+        .account-error {
+            font-size: 14px;
+            color: #dc2626;
+        }
+
+        /* ========================================
+           LOGOUT BUTTON
+        ======================================== */
+
+        #logout-button {
+            min-width: 90px;
+        }
+
+        #logout-button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+    </style>
+
 </head>
 
 
@@ -405,6 +515,140 @@
             </section>
 
 
+            <!-- ACCOUNT -->
+
+            <section class="settings-section">
+
+                <div class="settings-section-header">
+
+                    <div>
+
+                        <h2>
+                            Account
+                        </h2>
+
+                        <p>
+                            Your FlowOS account information.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="settings-row">
+
+                    <div class="settings-row-info">
+
+                        <strong>
+                            Profile
+                        </strong>
+
+                        <span>
+                            Information for the account currently signed in.
+                        </span>
+
+                    </div>
+
+
+                    <div class="account-info">
+
+                        <div
+                            id="account-loading"
+                            class="account-loading"
+                        >
+                            Loading account...
+                        </div>
+
+
+                        <div
+                            id="account-profile"
+                            class="account-profile"
+                            hidden
+                        >
+
+                            <div
+                                id="account-avatar"
+                                class="account-avatar"
+                            >
+                                F
+                            </div>
+
+
+                            <div class="account-details">
+
+                                <div
+                                    id="account-name"
+                                    class="account-name"
+                                >
+                                    FlowOS User
+                                </div>
+
+
+                                <div
+                                    id="account-email"
+                                    class="account-email"
+                                >
+                                    —
+                                </div>
+
+
+                                <div class="account-status">
+
+                                    <span
+                                        class="account-status-dot"
+                                    ></span>
+
+                                    Signed in
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div
+                            id="account-error"
+                            class="account-error"
+                            hidden
+                        >
+                            Unable to load account information.
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="settings-row">
+
+                    <div class="settings-row-info">
+
+                        <strong>
+                            Log out
+                        </strong>
+
+                        <span>
+                            Sign out of your FlowOS account on this device.
+                        </span>
+
+                    </div>
+
+
+                    <button
+                        type="button"
+                        id="logout-button"
+                        class="danger-button"
+                    >
+                        Log out
+                    </button>
+
+                </div>
+
+            </section>
+
+
             <!-- SAVE MESSAGE -->
 
             <div
@@ -425,6 +669,221 @@
 <script src="theme.js"></script>
 <script src="navigation.js"></script>
 <script src="settings.js"></script>
+
+
+<script>
+
+document.addEventListener(
+    "DOMContentLoaded",
+    async () => {
+
+        /* ========================================
+           LOAD CURRENT ACCOUNT
+        ======================================== */
+
+        const loadingElement =
+            document.getElementById(
+                "account-loading"
+            );
+
+        const profileElement =
+            document.getElementById(
+                "account-profile"
+            );
+
+        const errorElement =
+            document.getElementById(
+                "account-error"
+            );
+
+        const nameElement =
+            document.getElementById(
+                "account-name"
+            );
+
+        const emailElement =
+            document.getElementById(
+                "account-email"
+            );
+
+        const avatarElement =
+            document.getElementById(
+                "account-avatar"
+            );
+
+
+        try {
+
+            const response =
+                await fetch(
+                    "/api/auth/me",
+                    {
+                        method: "GET",
+                        credentials: "include"
+                    }
+                );
+
+
+            if (!response.ok) {
+
+                window.location.href =
+                    "/login";
+
+                return;
+
+            }
+
+
+            const data =
+                await response.json();
+
+            const user =
+                data.user;
+
+
+            if (!user) {
+
+                window.location.href =
+                    "/login";
+
+                return;
+
+            }
+
+
+            nameElement.textContent =
+                user.name;
+
+
+            emailElement.textContent =
+                user.email;
+
+
+            const firstLetter =
+                user.name
+                    .trim()
+                    .charAt(0)
+                    .toUpperCase();
+
+
+            avatarElement.textContent =
+                firstLetter || "F";
+
+
+            loadingElement.hidden =
+                true;
+
+
+            profileElement.hidden =
+                false;
+
+
+        } catch (error) {
+
+            console.error(
+                "Account loading error:",
+                error
+            );
+
+
+            loadingElement.hidden =
+                true;
+
+
+            errorElement.hidden =
+                false;
+
+        }
+
+
+        /* ========================================
+           LOGOUT
+        ======================================== */
+
+        const logoutButton =
+            document.getElementById(
+                "logout-button"
+            );
+
+
+        logoutButton.addEventListener(
+            "click",
+            async () => {
+
+                const confirmed =
+                    window.confirm(
+                        "Are you sure you want to log out of FlowOS?"
+                    );
+
+
+                if (!confirmed) {
+                    return;
+                }
+
+
+                logoutButton.disabled =
+                    true;
+
+
+                logoutButton.textContent =
+                    "Logging out...";
+
+
+                try {
+
+                    const response =
+                        await fetch(
+                            "/api/auth/logout",
+                            {
+                                method: "POST",
+                                credentials: "include"
+                            }
+                        );
+
+
+                    if (!response.ok) {
+
+                        throw new Error(
+                            "Logout failed."
+                        );
+
+                    }
+
+
+                    window.location.href =
+                        "/login";
+
+
+                } catch (error) {
+
+                    console.error(
+                        "Logout error:",
+                        error
+                    );
+
+
+                    logoutButton.disabled =
+                        false;
+
+
+                    logoutButton.textContent =
+                        "Log out";
+
+
+                    alert(
+                        "Unable to log out. Please try again."
+                    );
+
+                }
+
+            }
+        );
+
+    }
+);
+
+</script>
+
 
 </body>
 
