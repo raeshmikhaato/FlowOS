@@ -722,6 +722,8 @@ app.get(
 app.get(
     "/login",
     (req, res) => {
+        console.log("FLOWOS LOGIN ROUTE HIT");
+
         sendPage(
             res,
             "login.html"
