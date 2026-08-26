@@ -1,13 +1,19 @@
 {
   "name": "flowos",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "FlowOS - Intelligent Productivity Management Platform",
+  "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server.js",
+    "test": "echo \"No tests configured yet\""
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "productivity",
+    "task-management",
+    "project-management",
+    "calendar"
+  ],
+  "author": "Raeshmikhaa T O",
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
