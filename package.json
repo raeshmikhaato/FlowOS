@@ -1,19 +1,19 @@
 {
   "name": "flowos",
   "version": "1.0.0",
-  "description": "FlowOS - Intelligent Productivity Management Platform",
+  "description": "FlowOS - Personal productivity and task management system",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
-    "test": "echo \"No tests configured yet\""
+    "prestart": "node init-db.js",
+    "start": "node server.js"
   },
   "keywords": [
     "productivity",
-    "task-management",
+    "tasks",
     "project-management",
-    "calendar"
+    "flowos"
   ],
-  "author": "Raeshmikhaa T O",
+  "author": "",
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
