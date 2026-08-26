@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Analytics — FlowOS</title>
+
+    <link
+        rel="stylesheet"
+        href="/analytics.css"
+    >
+    <script src="/js/theme.js"></script>
+
+</head>
+
+
+<body>
+
+<div class="app">
+
+    <!-- ========================================
+         SIDEBAR
+    ========================================= -->
+
+    <aside class="sidebar">
+
+        <div class="logo">
+            FlowOS
+        </div>
+
+
+        <nav class="navigation">
+
+            <a
+                href="/"
+                class="nav-item"
+            >
+                Dashboard
+            </a>
+
+
+            <a
+                href="/tasks"
+                class="nav-item"
+            >
+                Tasks
+            </a>
+
+
+            <a
+                href="/projects"
+                class="nav-item"
+            >
+                Projects
+            </a>
+
+
+            <a
+                href="/calendar"
+                class="nav-item"
+            >
+                Calendar
+            </a>
+
+
+            <a
+                href="/analytics"
+                class="nav-item active"
+            >
+                Analytics
+            </a>
+
+        </nav>
+
+
+        <div class="sidebar-bottom">
+
+            <a
+                href="/settings"
+                class="nav-item"
+            >
+                Settings
+            </a>
+
+        </div>
+
+    </aside>
+
+
+    <!-- ========================================
+         MAIN CONTENT
+    ========================================= -->
+
+    <main class="main-content">
+
+
+        <!-- ====================================
+             HEADER
+        ===================================== -->
+
+        <header class="page-header">
+
+            <div>
+
+                <div class="eyebrow">
+                    INSIGHTS
+                </div>
+
+                <h1>
+                    Analytics
+                </h1>
+
+                <p>
+                    Understand how your work is progressing.
+                </p>
+
+            </div>
+
+        </header>
+
+
+        <!-- ====================================
+             ERROR
+        ===================================== -->
+
+        <div
+            id="error-message"
+            class="error-message hidden"
+        ></div>
+
+
+        <!-- ====================================
+             OVERVIEW
+        ===================================== -->
+
+        <section class="stats-grid">
+
+
+            <div class="stat-card">
+
+                <div class="stat-label">
+                    Total Tasks
+                </div>
+
+                <div
+                    id="total-tasks"
+                    class="stat-value"
+                >
+                    —
+                </div>
+
+                <div class="stat-description">
+                    All tasks in FlowOS
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-label">
+                    Completed
+                </div>
+
+                <div
+                    id="completed-tasks"
+                    class="stat-value"
+                >
+                    —
+                </div>
+
+                <div class="stat-description">
+                    Finished tasks
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-label">
+                    Completion Rate
+                </div>
+
+                <div
+                    id="completion-rate"
+                    class="stat-value"
+                >
+                    —
+                </div>
+
+                <div class="stat-description">
+                    Overall completion
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-label">
+                    Estimated Workload
+                </div>
+
+                <div
+                    id="estimated-hours"
+                    class="stat-value"
+                >
+                    —
+                </div>
+
+                <div class="stat-description">
+                    Total planned time
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ====================================
+             SECONDARY STATS
+        ===================================== -->
+
+        <section class="secondary-stats">
+
+
+            <div class="secondary-card">
+
+                <div>
+
+                    <div class="secondary-label">
+                        Completed Work
+                    </div>
+
+                    <div
+                        id="completed-hours"
+                        class="secondary-value"
+                    >
+                        —
+                    </div>
+
+                </div>
+
+                <div class="secondary-icon completed-icon">
+                    ✓
+                </div>
+
+            </div>
+
+
+            <div class="secondary-card">
+
+                <div>
+
+                    <div class="secondary-label">
+                        Remaining Work
+                    </div>
+
+                    <div
+                        id="remaining-hours"
+                        class="secondary-value"
+                    >
+                        —
+                    </div>
+
+                </div>
+
+                <div class="secondary-icon remaining-icon">
+                    →
+                </div>
+
+            </div>
+
+
+            <div class="secondary-card">
+
+                <div>
+
+                    <div class="secondary-label">
+                        High Priority
+                    </div>
+
+                    <div
+                        id="high-priority-rate"
+                        class="secondary-value"
+                    >
+                        —
+                    </div>
+
+                </div>
+
+                <div class="secondary-icon priority-icon">
+                    !
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ====================================
+             CHART ROW
+        ===================================== -->
+
+        <section class="chart-grid">
+
+
+            <!-- PRIORITY -->
+
+            <div class="analytics-card">
+
+                <div class="card-header">
+
+                    <div>
+
+                        <div class="section-label">
+                            TASK BREAKDOWN
+                        </div>
+
+                        <h2>
+                            Tasks by priority
+                        </h2>
+
+                    </div>
+
+                </div>
+
+
+                <div
+                    id="priority-chart"
+                    class="bar-chart"
+                >
+
+                    <div class="chart-loading">
+                        Loading...
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- PROJECT -->
+
+            <div class="analytics-card">
+
+                <div class="card-header">
+
+                    <div>
+
+                        <div class="section-label">
+                            PROJECTS
+                        </div>
+
+                        <h2>
+                            Work by project
+                        </h2>
+
+                    </div>
+
+                </div>
+
+
+                <div
+                    id="project-chart"
+                    class="bar-chart"
+                >
+
+                    <div class="chart-loading">
+                        Loading...
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ====================================
+             PROJECT PERFORMANCE
+        ===================================== -->
+
+        <section class="analytics-card project-performance-card">
+
+            <div class="card-header">
+
+                <div>
+
+                    <div class="section-label">
+                        PROJECT PERFORMANCE
+                    </div>
+
+                    <h2>
+                        Completion by project
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <div
+                id="project-performance"
+                class="project-performance"
+            >
+
+                <div class="chart-loading">
+                    Loading...
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ====================================
+             INSIGHTS
+        ===================================== -->
+
+        <section class="analytics-card insights-card">
+
+            <div class="card-header">
+
+                <div>
+
+                    <div class="section-label">
+                        FLOWOS INSIGHTS
+                    </div>
+
+                    <h2>
+                        What your data says
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <div
+                id="insights-list"
+                class="insights-list"
+            >
+
+                <div class="chart-loading">
+                    Analyzing your workspace...
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ====================================
+             DATA NOTE
+        ===================================== -->
+
+        <section class="analytics-note">
+
+            <div class="note-icon">
+                i
+            </div>
+
+            <div>
+
+                <strong>
+                    Analytics uses your real FlowOS data.
+                </strong>
+
+                <p>
+                    Current analytics are calculated from the tasks
+                    and projects stored in PostgreSQL. Features such
+                    as daily productivity, streaks and actual time
+                    require additional tracking data and are not
+                    fabricated.
+                </p>
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+</div>
+
+<script src="theme.js"></script>
+<script src="/analytics.js"></script>
+<script src="navigation.js"></script>
+
+</body>
+
+</html>

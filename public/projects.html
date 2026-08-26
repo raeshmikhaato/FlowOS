@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Projects — FlowOS</title>
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+    <script src="/js/theme.js"></script>
+
+</head>
+
+
+<body>
+
+<div class="app">
+
+    <!-- ========================================
+         SIDEBAR
+    ========================================= -->
+
+    <aside class="sidebar">
+
+        <div class="logo">
+            FlowOS
+        </div>
+
+
+        <nav class="navigation">
+
+            <a
+                href="/"
+                class="nav-item"
+            >
+                Dashboard
+            </a>
+
+
+            <a
+                href="/tasks"
+                class="nav-item"
+            >
+                Tasks
+            </a>
+
+
+            <a
+                href="/projects"
+                class="nav-item active"
+            >
+                Projects
+            </a>
+
+
+            <a
+                href="/calendar"
+                class="nav-item"
+            >
+                Calendar
+            </a>
+
+
+            <a
+                href="/analytics"
+                class="nav-item"
+            >
+                Analytics
+            </a>
+
+        </nav>
+
+
+        <div class="sidebar-bottom">
+
+            <a
+                href="/settings"
+                class="nav-item"
+            >
+                Settings
+            </a>
+
+        </div>
+
+    </aside>
+
+
+    <!-- ========================================
+         MAIN CONTENT
+    ========================================= -->
+
+    <main class="main-content">
+
+
+        <!-- ====================================
+             PAGE HEADER
+        ===================================== -->
+
+        <header class="page-header">
+
+            <div class="page-header-text">
+
+                <h1>
+                    Projects
+                </h1>
+
+                <p>
+                    Organize your work into focused projects.
+                </p>
+
+            </div>
+
+
+            <button
+                type="button"
+                class="primary-button"
+                id="add-project-button"
+            >
+                + Add Project
+            </button>
+
+        </header>
+
+
+        <!-- ====================================
+             PROJECT FORM
+        ===================================== -->
+
+        <section
+            class="task-form-container"
+            id="project-form-container"
+        >
+
+            <form id="project-form">
+
+                <div class="form-group">
+
+                    <label for="project-name">
+                        Project name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="project-name"
+                        placeholder="e.g. Build my portfolio"
+                        maxlength="150"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="project-description">
+                        Description
+                    </label>
+
+                    <textarea
+                        id="project-description"
+                        placeholder="What is this project about?"
+                        rows="4"
+                        maxlength="1000"
+                    ></textarea>
+
+                </div>
+
+
+                <div class="form-row">
+
+                    <div class="form-group">
+
+                        <label for="project-status">
+                            Status
+                        </label>
+
+                        <select id="project-status">
+
+                            <option value="planning">
+                                Planning
+                            </option>
+
+                            <option value="active">
+                                Active
+                            </option>
+
+                            <option value="completed">
+                                Completed
+                            </option>
+
+                            <option value="archived">
+                                Archived
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="project-color">
+                            Color
+                        </label>
+
+                        <select id="project-color">
+
+                            <option value="blue">
+                                Blue
+                            </option>
+
+                            <option value="purple">
+                                Purple
+                            </option>
+
+                            <option value="green">
+                                Green
+                            </option>
+
+                            <option value="orange">
+                                Orange
+                            </option>
+
+                            <option value="red">
+                                Red
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="project-deadline">
+                        Deadline
+                    </label>
+
+                    <input
+                        type="date"
+                        id="project-deadline"
+                    >
+
+                </div>
+
+
+                <div class="form-actions">
+
+                    <button
+                        type="button"
+                        class="secondary-button"
+                        id="cancel-project-button"
+                    >
+                        Cancel
+                    </button>
+
+
+                    <button
+                        type="submit"
+                        class="primary-button"
+                    >
+                        Create Project
+                    </button>
+
+                </div>
+
+            </form>
+
+        </section>
+
+
+        <!-- ====================================
+             PROJECT STATISTICS
+        ===================================== -->
+
+        <section class="task-stats">
+
+
+            <div class="stat-card">
+
+                <span class="stat-label">
+                    Total Projects
+                </span>
+
+                <strong id="total-projects">
+                    0
+                </strong>
+
+                <span class="stat-description">
+                    All projects
+                </span>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <span class="stat-label">
+                    Active
+                </span>
+
+                <strong id="active-projects">
+                    0
+                </strong>
+
+                <span class="stat-description">
+                    Currently active
+                </span>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <span class="stat-label">
+                    Completed
+                </span>
+
+                <strong id="completed-projects">
+                    0
+                </strong>
+
+                <span class="stat-description">
+                    Finished projects
+                </span>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <span class="stat-label">
+                    Tasks
+                </span>
+
+                <strong id="project-task-count">
+                    0
+                </strong>
+
+                <span class="stat-description">
+                    Across all projects
+                </span>
+
+            </div>
+
+        </section>
+
+
+        <!-- ====================================
+             PROJECT LIST
+        ===================================== -->
+
+        <section
+            class="project-grid"
+            id="project-list"
+        >
+
+            <!-- Project cards inserted by projects.js -->
+
+        </section>
+
+
+    </main>
+
+</div>
+
+
+<script src="projects.js"></script>
+<script src="navigation.js"></script>
+<script src="theme.js"></script>
+</body>
+
+</html>

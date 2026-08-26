@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Calendar — FlowOS</title>
+
+    <link rel="stylesheet" href="/calendar.css">
+    <script src="/js/theme.js"></script>
+</head>
+
+<body>
+
+<div class="app">
+
+    <aside class="sidebar">
+
+        <div class="logo">
+            FlowOS
+        </div>
+
+        <nav class="navigation">
+
+            <a
+                href="/"
+                class="nav-item"
+            >
+                Dashboard
+            </a>
+
+            <a
+                href="/tasks"
+                class="nav-item"
+            >
+                Tasks
+            </a>
+
+            <a
+                href="/projects"
+                class="nav-item"
+            >
+                Projects
+            </a>
+
+            <a
+                href="/calendar"
+                class="nav-item active"
+            >
+                Calendar
+            </a>
+
+            <a
+                href="/analytics"
+                class="nav-item"
+            >
+                Analytics
+            </a>
+
+        </nav>
+
+        <div class="sidebar-bottom">
+
+            <a
+                href="/settings"
+                class="nav-item"
+            >
+                Settings
+            </a>
+
+        </div>
+
+    </aside>
+
+
+    <main class="main-content">
+
+        <header class="page-header">
+
+            <div>
+
+                <div class="eyebrow">
+                    PLANNING
+                </div>
+
+                <h1>
+                    Calendar
+                </h1>
+
+                <p>
+                    See your tasks and deadlines at a glance.
+                </p>
+
+            </div>
+
+
+            <button
+                id="add-task-button"
+                class="primary-button"
+                type="button"
+            >
+                + Add Task
+            </button>
+
+        </header>
+
+
+        <div
+            id="error-message"
+            class="error-message hidden"
+        ></div>
+
+
+        <section class="calendar-toolbar">
+
+            <div class="calendar-navigation">
+
+                <button
+                    id="previous-month"
+                    class="icon-button"
+                    type="button"
+                    aria-label="Previous month"
+                >
+                    ‹
+                </button>
+
+                <button
+                    id="today-button"
+                    class="today-button"
+                    type="button"
+                >
+                    Today
+                </button>
+
+                <button
+                    id="next-month"
+                    class="icon-button"
+                    type="button"
+                    aria-label="Next month"
+                >
+                    ›
+                </button>
+
+            </div>
+
+
+            <h2 id="calendar-title">
+                Loading...
+            </h2>
+
+
+            <div class="legend">
+
+                <span class="legend-item">
+
+                    <span class="legend-dot task-dot"></span>
+
+                    Task
+
+                </span>
+
+
+                <span class="legend-item">
+
+                    <span class="legend-dot project-dot"></span>
+
+                    Project deadline
+
+                </span>
+
+            </div>
+
+        </section>
+
+
+        <section class="calendar-card">
+
+            <div class="weekday-row">
+
+                <div>Sun</div>
+                <div>Mon</div>
+                <div>Tue</div>
+                <div>Wed</div>
+                <div>Thu</div>
+                <div>Fri</div>
+                <div>Sat</div>
+
+            </div>
+
+
+            <div
+                id="calendar-grid"
+                class="calendar-grid"
+            >
+
+                <div class="calendar-loading">
+                    Loading calendar...
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <section class="calendar-lower">
+
+
+            <div class="selected-day-card">
+
+                <div class="section-label">
+                    SELECTED DAY
+                </div>
+
+
+                <div
+                    id="selected-date-title"
+                    class="selected-date-title"
+                >
+                    Select a date
+                </div>
+
+
+                <div
+                    id="selected-date-content"
+                    class="selected-date-content"
+                >
+                    Click a day on the calendar to see its tasks and deadlines.
+                </div>
+
+            </div>
+
+
+            <div class="upcoming-card">
+
+                <div class="section-label">
+                    UPCOMING
+                </div>
+
+
+                <div class="upcoming-header">
+
+                    <h2>
+                        Upcoming tasks
+                    </h2>
+
+
+                    <span
+                        id="upcoming-count"
+                        class="count-badge"
+                    >
+                        0
+                    </span>
+
+                </div>
+
+
+                <div
+                    id="upcoming-list"
+                    class="upcoming-list"
+                >
+
+                    <div class="loading-text">
+                        Loading tasks...
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<div
+    id="task-modal"
+    class="modal hidden"
+>
+
+    <div class="modal-overlay"></div>
+
+
+    <div
+        class="modal-card"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="task-modal-title"
+    >
+
+        <div class="modal-header">
+
+            <div>
+
+                <div class="section-label">
+                    TASK
+                </div>
+
+                <h2 id="task-modal-title">
+                    Add task
+                </h2>
+
+            </div>
+
+
+            <button
+                id="close-modal"
+                class="modal-close"
+                type="button"
+                aria-label="Close"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <form id="task-form">
+
+
+            <div class="form-group">
+
+                <label for="task-title">
+                    Task title
+                </label>
+
+                <input
+                    id="task-title"
+                    type="text"
+                    maxlength="200"
+                    placeholder="What needs to be done?"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-row">
+
+                <div class="form-group">
+
+                    <label for="task-date">
+                        Due date
+                    </label>
+
+                    <input
+                        id="task-date"
+                        type="date"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="task-priority">
+                        Priority
+                    </label>
+
+                    <select id="task-priority">
+
+                        <option value="low">
+                            Low
+                        </option>
+
+                        <option
+                            value="medium"
+                            selected
+                        >
+                            Medium
+                        </option>
+
+                        <option value="high">
+                            High
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <div class="form-row">
+
+                <div class="form-group">
+
+                    <label for="task-time">
+                        Estimated time
+                    </label>
+
+                    <input
+                        id="task-time"
+                        type="number"
+                        min="1"
+                        placeholder="Minutes"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="task-project">
+                        Project
+                    </label>
+
+                    <select id="task-project">
+
+                        <option value="">
+                            No project
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <div
+                id="form-error"
+                class="form-error hidden"
+            ></div>
+
+
+            <div class="modal-actions">
+
+                <button
+                    id="cancel-task"
+                    class="secondary-button"
+                    type="button"
+                >
+                    Cancel
+                </button>
+
+
+                <button
+                    id="save-task"
+                    class="primary-button"
+                    type="submit"
+                >
+                    Create Task
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+<script src="theme.js"></script>
+<script src="/calendar.js"></script>
+<script src="navigation.js"></script>
+
+</body>
+</html>

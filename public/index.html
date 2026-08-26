@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>FlowOS — Dashboard</title>
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+    <script src="/js/theme.js"></script>
+
+    <style>
+
+        /* ========================================
+           DASHBOARD PROJECT CARDS
+        ======================================== */
+
+        .dashboard-project-cards {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 16px;
+            margin-top: 20px;
+        }
+
+
+        .dashboard-project-card {
+            background: #ffffff;
+            border: 1px solid #e8e8e8;
+            border-radius: 14px;
+            padding: 20px;
+            transition:
+                transform 0.2s ease,
+                box-shadow 0.2s ease,
+                border-color 0.2s ease;
+        }
+
+
+        .dashboard-project-card:hover {
+            transform: translateY(-2px);
+            border-color: #d8d8d8;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+        }
+
+
+        .dashboard-project-card-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+
+        .dashboard-project-card-title {
+            margin: 0;
+            font-size: 17px;
+            font-weight: 600;
+            color: #171717;
+        }
+
+
+        .dashboard-project-card-status {
+            display: inline-flex;
+            align-items: center;
+            padding: 5px 9px;
+            border-radius: 999px;
+            background: #f3f3f3;
+            color: #666;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: capitalize;
+            white-space: nowrap;
+        }
+
+
+        .dashboard-project-card-description {
+            margin: 5px 0 0;
+            color: #888;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+
+        .dashboard-project-card-progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+
+        .dashboard-project-card-progress-label {
+            font-size: 12px;
+            color: #777;
+        }
+
+
+        .dashboard-project-card-progress-value {
+            font-size: 13px;
+            font-weight: 600;
+            color: #222;
+        }
+
+
+        .dashboard-project-card-progress-track {
+            width: 100%;
+            height: 7px;
+            background: #eeeeee;
+            border-radius: 999px;
+            overflow: hidden;
+        }
+
+
+        .dashboard-project-card-progress-bar {
+            height: 100%;
+            width: 0%;
+            background: #171717;
+            border-radius: 999px;
+            transition: width 0.4s ease;
+        }
+
+
+        .dashboard-project-card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 14px;
+            padding-top: 14px;
+            border-top: 1px solid #eeeeee;
+        }
+
+
+        .dashboard-project-card-tasks {
+            font-size: 12px;
+            color: #777;
+        }
+
+
+        .dashboard-project-card-deadline {
+            font-size: 12px;
+            color: #777;
+        }
+
+
+        .dashboard-project-empty {
+            grid-column: 1 / -1;
+            padding: 32px;
+            text-align: center;
+            border: 1px dashed #dcdcdc;
+            border-radius: 14px;
+            color: #888;
+            background: #fafafa;
+        }
+
+
+        .dashboard-project-empty strong {
+            display: block;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+
+        @media (max-width: 800px) {
+
+            .dashboard-project-cards {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+    <div class="app">
+
+
+        <!-- =====================================
+             SIDEBAR
+        ====================================== -->
+
+        <aside class="sidebar">
+
+            <div class="logo">
+                FlowOS
+            </div>
+
+
+            <nav class="navigation">
+
+                <a
+                    href="/"
+                    class="nav-item active"
+                >
+                    Dashboard
+                </a>
+
+
+                <a
+                    href="/tasks"
+                    class="nav-item"
+                >
+                    Tasks
+                </a>
+
+
+                <a
+                    href="/projects"
+                    class="nav-item"
+                >
+                    Projects
+                </a>
+
+
+                <a
+                    href="/calendar"
+                    class="nav-item"
+                >
+                    Calendar
+                </a>
+
+
+                <a
+                    href="/analytics"
+                    class="nav-item"
+                >
+                    Analytics
+                </a>
+
+            </nav>
+
+
+            <div class="sidebar-bottom">
+
+                <a
+                    href="/settings"
+                    class="nav-item"
+                >
+                    Settings
+                </a>
+
+            </div>
+
+        </aside>
+
+
+
+        <!-- =====================================
+             MAIN CONTENT
+        ====================================== -->
+
+        <main class="main-content">
+
+
+            <!-- HEADER -->
+
+            <header class="dashboard-header">
+
+                <div>
+
+                    <p class="dashboard-eyebrow">
+                        YOUR WORKSPACE
+                    </p>
+
+                    <h1>
+                        Good evening.
+                    </h1>
+
+                    <p class="dashboard-subtitle">
+                        Here's what your day looks like.
+                    </p>
+
+                </div>
+
+
+                <button
+                    class="primary-button dashboard-add-button"
+                    id="dashboard-add-task-button"
+                    type="button"
+                >
+                    + Add Task
+                </button>
+
+            </header>
+
+
+
+            <!-- =====================================
+                 TASK STATISTICS
+            ====================================== -->
+
+            <section class="dashboard-stats">
+
+
+                <div class="dashboard-stat-card">
+
+                    <span class="stat-label">
+                        Total Tasks
+                    </span>
+
+                    <strong id="dashboard-total">
+                        0
+                    </strong>
+
+                </div>
+
+
+                <div class="dashboard-stat-card">
+
+                    <span class="stat-label">
+                        Active
+                    </span>
+
+                    <strong id="dashboard-active">
+                        0
+                    </strong>
+
+                </div>
+
+
+                <div class="dashboard-stat-card">
+
+                    <span class="stat-label">
+                        Completed
+                    </span>
+
+                    <strong id="dashboard-completed">
+                        0
+                    </strong>
+
+                </div>
+
+
+                <div class="dashboard-stat-card">
+
+                    <span class="stat-label">
+                        Progress
+                    </span>
+
+                    <strong id="dashboard-progress">
+                        0%
+                    </strong>
+
+                </div>
+
+
+            </section>
+
+
+
+            <!-- =====================================
+                 PROJECT STATISTICS
+            ====================================== -->
+
+            <section class="dashboard-projects-section">
+
+                <div class="section-heading">
+
+                    <div>
+
+                        <span class="section-eyebrow">
+                            PROJECTS
+                        </span>
+
+                        <h2>
+                            Project Overview
+                        </h2>
+
+                    </div>
+
+
+                    <a
+                        href="/projects"
+                        class="view-all-link"
+                    >
+                        View all →
+                    </a>
+
+                </div>
+
+
+
+                <!-- PROJECT STATS -->
+
+                <div class="dashboard-project-stats">
+
+
+                    <div class="dashboard-project-stat-card">
+
+                        <span class="stat-label">
+                            Total Projects
+                        </span>
+
+                        <strong id="dashboard-project-total">
+                            0
+                        </strong>
+
+                        <span class="stat-description">
+                            All projects
+                        </span>
+
+                    </div>
+
+
+                    <div class="dashboard-project-stat-card">
+
+                        <span class="stat-label">
+                            Active Projects
+                        </span>
+
+                        <strong id="dashboard-project-active">
+                            0
+                        </strong>
+
+                        <span class="stat-description">
+                            Currently in progress
+                        </span>
+
+                    </div>
+
+
+                    <div class="dashboard-project-stat-card">
+
+                        <span class="stat-label">
+                            Completed Projects
+                        </span>
+
+                        <strong id="dashboard-project-completed">
+                            0
+                        </strong>
+
+                        <span class="stat-description">
+                            Finished projects
+                        </span>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- PROJECT CARDS -->
+
+                <div
+                    class="dashboard-project-cards"
+                    id="dashboard-project-cards"
+                >
+
+                    <!-- JavaScript loads project cards here -->
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =====================================
+                 PROGRESS
+            ====================================== -->
+
+            <section class="dashboard-progress-card">
+
+                <div class="section-heading">
+
+                    <div>
+
+                        <span class="section-eyebrow">
+                            TODAY
+                        </span>
+
+                        <h2>
+                            Today's Progress
+                        </h2>
+
+                    </div>
+
+
+                    <strong id="dashboard-progress-label">
+                        0%
+                    </strong>
+
+                </div>
+
+
+                <div class="dashboard-progress-track">
+
+                    <div
+                        class="dashboard-progress-bar"
+                        id="dashboard-progress-bar"
+                    ></div>
+
+                </div>
+
+
+                <div class="dashboard-progress-milestones">
+
+                    <span>0%</span>
+
+                    <span>25%</span>
+
+                    <span>50%</span>
+
+                    <span>75%</span>
+
+                    <span>100%</span>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =====================================
+                 ACTIVE TASKS
+            ====================================== -->
+
+            <section class="dashboard-tasks">
+
+                <div class="section-heading">
+
+                    <div>
+
+                        <span class="section-eyebrow">
+                            WORK
+                        </span>
+
+                        <h2>
+                            Active Tasks
+                        </h2>
+
+                    </div>
+
+
+                    <a
+                        href="/tasks"
+                        class="view-all-link"
+                    >
+                        View all →
+                    </a>
+
+                </div>
+
+
+                <div
+                    class="dashboard-task-list"
+                    id="dashboard-task-list"
+                >
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =====================================
+                 QUICK ADD TASK MODAL
+            ====================================== -->
+
+            <div
+                class="modal-overlay"
+                id="task-modal"
+            >
+
+                <div
+                    class="task-modal"
+                    role="dialog"
+                    aria-modal="true"
+                    aria-labelledby="modal-title"
+                >
+
+                    <div class="modal-header">
+
+                        <div>
+
+                            <span class="modal-eyebrow">
+                                QUICK ADD
+                            </span>
+
+                            <h2 id="modal-title">
+                                Create a task
+                            </h2>
+
+                            <p>
+                                Add something you want
+                                to get done.
+                            </p>
+
+                        </div>
+
+
+                        <button
+                            type="button"
+                            class="modal-close"
+                            id="close-task-modal"
+                            aria-label="Close"
+                        >
+                            ×
+                        </button>
+
+                    </div>
+
+
+
+                    <form id="dashboard-task-form">
+
+                        <div class="form-group">
+
+                            <label for="dashboard-task-title">
+                                Task title
+                            </label>
+
+                            <input
+                                type="text"
+                                id="dashboard-task-title"
+                                placeholder="What needs to be done?"
+                                required
+                            >
+
+                        </div>
+
+
+
+                        <div class="form-row">
+
+                            <div class="form-group">
+
+                                <label for="dashboard-task-priority">
+                                    Priority
+                                </label>
+
+                                <select
+                                    id="dashboard-task-priority"
+                                >
+
+                                    <option value="high">
+                                        High
+                                    </option>
+
+                                    <option
+                                        value="medium"
+                                        selected
+                                    >
+                                        Medium
+                                    </option>
+
+                                    <option value="low">
+                                        Low
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+
+
+                            <div class="form-group">
+
+                                <label for="dashboard-task-time">
+                                    Estimated time
+                                </label>
+
+                                <input
+                                    type="number"
+                                    id="dashboard-task-time"
+                                    placeholder="Minutes"
+                                    min="1"
+                                    required
+                                >
+
+                            </div>
+
+                        </div>
+
+
+
+                        <div class="modal-actions">
+
+                            <button
+                                type="button"
+                                class="secondary-button"
+                                id="close-task-modal-bottom"
+                            >
+                                Cancel
+                            </button>
+
+
+                            <button
+                                type="submit"
+                                class="primary-button"
+                            >
+                                Create Task
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =====================================
+                 TASK DETAILS MODAL
+            ====================================== -->
+
+            <div
+                class="modal-overlay"
+                id="task-details-modal"
+            >
+
+                <div
+                    class="task-modal"
+                    role="dialog"
+                    aria-modal="true"
+                    aria-labelledby="details-task-title"
+                >
+
+                    <div class="modal-header">
+
+                        <div>
+
+                            <span class="modal-eyebrow">
+                                TASK DETAILS
+                            </span>
+
+                            <h2 id="details-task-title">
+                                Task
+                            </h2>
+
+                            <p>
+                                Task information
+                            </p>
+
+                        </div>
+
+
+                        <button
+                            type="button"
+                            class="modal-close"
+                            id="details-modal-close"
+                            aria-label="Close"
+                        >
+                            ×
+                        </button>
+
+                    </div>
+
+
+
+                    <div class="task-details-grid">
+
+
+                        <div class="task-detail-item">
+
+                            <span>
+                                Priority
+                            </span>
+
+                            <strong id="details-task-priority">
+                                —
+                            </strong>
+
+                        </div>
+
+
+
+                        <div class="task-detail-item">
+
+                            <span>
+                                Estimated time
+                            </span>
+
+                            <strong id="details-task-time">
+                                —
+                            </strong>
+
+                        </div>
+
+
+
+                        <div class="task-detail-item">
+
+                            <span>
+                                Status
+                            </span>
+
+                            <strong id="details-task-status">
+                                Active
+                            </strong>
+
+                        </div>
+
+
+                    </div>
+
+
+
+                    <div class="modal-actions">
+
+                        <button
+                            type="button"
+                            class="secondary-button"
+                            id="details-modal-close-button"
+                        >
+                            Close
+                        </button>
+
+
+                        <button
+                            type="button"
+                            class="primary-button"
+                            id="details-complete-button"
+                        >
+                            Mark Complete
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </main>
+
+    </div>
+
+
+    <script src="theme.js"></script>
+    <script src="dashboard.js?v=3"></script>
+    <script src="navigation.js"></script>
+
+</body>
+
+</html>

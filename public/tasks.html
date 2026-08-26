@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Tasks — FlowOS</title>
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+    <script src="/js/theme.js"></script>
+
+</head>
+
+
+<body>
+
+<div class="app">
+
+    <!-- ========================================
+         SIDEBAR
+    ========================================= -->
+
+    <aside class="sidebar">
+
+        <div class="logo">
+            FlowOS
+        </div>
+
+
+        <nav class="navigation">
+
+            <a
+                href="/"
+                class="nav-item"
+            >
+                Dashboard
+            </a>
+
+
+            <a
+                href="/tasks"
+                class="nav-item active"
+            >
+                Tasks
+            </a>
+
+
+            <a
+                href="/projects"
+                class="nav-item"
+            >
+                Projects
+            </a>
+
+
+            <a
+                href="/calendar"
+                class="nav-item"
+            >
+                Calendar
+            </a>
+
+
+            <a
+                href="/analytics"
+                class="nav-item"
+            >
+                Analytics
+            </a>
+
+        </nav>
+
+
+        <div class="sidebar-bottom">
+
+            <a
+                href="/settings"
+                class="nav-item"
+            >
+                Settings
+            </a>
+
+        </div>
+
+    </aside>
+
+
+    <!-- ========================================
+         MAIN CONTENT
+    ========================================= -->
+
+    <main class="main-content">
+
+
+        <!-- ====================================
+             PAGE HEADER
+        ===================================== -->
+
+        <header class="page-header">
+
+            <div class="page-header-text">
+
+                <h1>
+                    Tasks
+                </h1>
+
+                <p>
+                    Manage everything you need to get done.
+                </p>
+
+            </div>
+
+
+            <button
+                type="button"
+                class="primary-button"
+                id="add-task-button"
+            >
+                + Add Task
+            </button>
+
+        </header>
+
+
+        <!-- ====================================
+             ADD TASK FORM
+        ===================================== -->
+
+        <section
+            class="task-form-container"
+            id="task-form-container"
+        >
+
+            <form id="task-form">
+
+
+                <!-- TASK TITLE -->
+
+                <div class="form-group">
+
+                    <label for="task-title">
+                        Task title
+                    </label>
+
+                    <input
+                        type="text"
+                        id="task-title"
+                        placeholder="What needs to be done?"
+                        maxlength="200"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- PRIORITY / TIME / PROJECT -->
+
+                <div class="form-row">
+
+
+                    <div class="form-group">
+
+                        <label for="task-priority">
+                            Priority
+                        </label>
+
+                        <select id="task-priority">
+
+                            <option value="high">
+                                High
+                            </option>
+
+                            <option
+                                value="medium"
+                                selected
+                            >
+                                Medium
+                            </option>
+
+                            <option value="low">
+                                Low
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="task-time">
+                            Estimated time
+                        </label>
+
+                        <input
+                            type="number"
+                            id="task-time"
+                            placeholder="Minutes"
+                            min="1"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="task-project">
+                            Project
+                        </label>
+
+                        <select id="task-project">
+
+                            <option value="">
+                                No project
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                </div>
+
+
+                <!-- FORM ACTIONS -->
+
+                <div class="form-actions">
+
+                    <button
+                        type="button"
+                        class="secondary-button"
+                        id="cancel-task-button"
+                    >
+                        Cancel
+                    </button>
+
+
+                    <button
+                        type="submit"
+                        class="primary-button"
+                    >
+                        Create Task
+                    </button>
+
+                </div>
+
+
+            </form>
+
+        </section>
+
+
+        <!-- ====================================
+             TASK STATISTICS
+        ===================================== -->
+
+        <section class="task-stats">
+
+
+            <div class="stat-card">
+
+                <span class="stat-label">
+                    Total Tasks
+                </span>
+
+                <strong id="total-tasks">
+                    0
+                </strong>
+
+                <span class="stat-description">
+                    All your tasks
+                </span>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <span class="stat-label">
+                    Active
+                </span>
+
+                <strong id="active-tasks">
+                    0
+                </strong>
+
+                <span class="stat-description">
+                    Still to do
+                </span>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <span class="stat-label">
+                    Completed
+                </span>
+
+                <strong id="completed-tasks">
+                    0
+                </strong>
+
+                <span class="stat-description">
+                    Finished tasks
+                </span>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <span class="stat-label">
+                    Completion
+                </span>
+
+                <strong id="completion-rate">
+                    0%
+                </strong>
+
+                <span class="stat-description">
+                    Overall progress
+                </span>
+
+            </div>
+
+
+        </section>
+
+
+        <!-- ====================================
+             PROGRESS
+        ===================================== -->
+
+        <section class="progress-section">
+
+            <div class="progress-header">
+
+                <div class="progress-info">
+
+                    <h2>
+                        Overall Progress
+                    </h2>
+
+                    <p>
+                        Keep going — you're making progress.
+                    </p>
+
+                </div>
+
+                <strong id="progress-percentage">
+                    0%
+                </strong>
+
+            </div>
+
+
+            <div class="progress-wrapper">
+
+                <div class="progress-track">
+
+                    <div
+                        class="progress-bar"
+                        id="progress-bar"
+                    ></div>
+
+                </div>
+
+
+                <div class="progress-milestones">
+
+                    <span>0%</span>
+
+                    <span>25%</span>
+
+                    <span>50%</span>
+
+                    <span>75%</span>
+
+                    <span>100%</span>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ====================================
+             TASK FILTERS
+        ===================================== -->
+
+        <section class="task-filters">
+
+
+            <div class="search-box">
+
+                <span
+                    class="search-icon"
+                    aria-hidden="true"
+                >
+                    ⌕
+                </span>
+
+
+                <input
+                    type="text"
+                    id="task-search"
+                    placeholder="Search tasks..."
+                    autocomplete="off"
+                >
+
+            </div>
+
+
+            <select id="priority-filter">
+
+                <option value="all">
+                    All priorities
+                </option>
+
+                <option value="high">
+                    High priority
+                </option>
+
+                <option value="medium">
+                    Medium priority
+                </option>
+
+                <option value="low">
+                    Low priority
+                </option>
+
+            </select>
+
+
+            <select id="status-filter">
+
+                <option value="all">
+                    All tasks
+                </option>
+
+                <option value="active">
+                    Active
+                </option>
+
+                <option value="completed">
+                    Completed
+                </option>
+
+            </select>
+
+
+            <button
+                type="button"
+                id="clear-filters"
+                class="secondary-button"
+            >
+                Clear
+            </button>
+
+
+        </section>
+
+
+        <!-- ====================================
+             TASK RESULTS COUNT
+        ===================================== -->
+
+        <div class="task-results">
+
+            <span id="task-results-count">
+                0 tasks
+            </span>
+
+        </div>
+
+
+        <!-- ====================================
+             TASK LIST
+        ===================================== -->
+
+        <section
+            class="task-list"
+            id="task-list"
+        >
+
+            <!-- Tasks inserted by tasks.js -->
+
+        </section>
+
+
+    </main>
+
+</div>
+
+
+<!-- ========================================
+     JAVASCRIPT
+========================================= -->
+
+<script src="theme.js"></script>
+<script src="tasks.js"></script>
+<script src="navigation.js"></script>
+
+
+</body>
+
+</html>

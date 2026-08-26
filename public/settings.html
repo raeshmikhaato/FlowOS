@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Settings — FlowOS</title>
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="settings.css"
+    >
+
+</head>
+
+
+<body>
+
+<div class="app">
+
+    <!-- ========================================
+         SIDEBAR
+    ========================================= -->
+
+    <aside class="sidebar">
+
+        <div class="logo">
+            FlowOS
+        </div>
+
+
+        <nav class="navigation">
+
+            <a
+                href="/"
+                class="nav-item"
+            >
+                Dashboard
+            </a>
+
+
+            <a
+                href="/tasks"
+                class="nav-item"
+            >
+                Tasks
+            </a>
+
+
+            <a
+                href="/projects"
+                class="nav-item"
+            >
+                Projects
+            </a>
+
+
+            <a
+                href="/calendar"
+                class="nav-item"
+            >
+                Calendar
+            </a>
+
+
+            <a
+                href="/analytics"
+                class="nav-item"
+            >
+                Analytics
+            </a>
+
+        </nav>
+
+
+        <div class="sidebar-bottom">
+
+            <a
+                href="/settings"
+                class="nav-item active"
+            >
+                Settings
+            </a>
+
+        </div>
+
+    </aside>
+
+
+    <!-- ========================================
+         MAIN CONTENT
+    ========================================= -->
+
+    <main class="main-content settings-main">
+
+        <header class="page-header">
+
+            <div class="page-header-text">
+
+                <div class="settings-eyebrow">
+                    PREFERENCES
+                </div>
+
+                <h1>
+                    Settings
+                </h1>
+
+                <p>
+                    Customize how FlowOS works for you.
+                </p>
+
+            </div>
+
+        </header>
+
+
+        <!-- ====================================
+             SETTINGS CONTENT
+        ===================================== -->
+
+        <section class="settings-container">
+
+
+            <!-- APPEARANCE -->
+
+            <section class="settings-section">
+
+                <div class="settings-section-header">
+
+                    <div>
+
+                        <h2>
+                            Appearance
+                        </h2>
+
+                        <p>
+                            Choose how FlowOS looks.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="settings-row">
+
+                    <div class="settings-row-info">
+
+                        <strong>
+                            Theme
+                        </strong>
+
+                        <span>
+                            Choose the appearance of your workspace.
+                        </span>
+
+                    </div>
+
+
+                    <select
+                        id="theme-setting"
+                        class="settings-select"
+                    >
+
+                        <option value="light">
+                            Light
+                        </option>
+
+                        <option value="dark">
+                            Dark
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </section>
+
+
+            <!-- TASKS -->
+
+            <section class="settings-section">
+
+                <div class="settings-section-header">
+
+                    <div>
+
+                        <h2>
+                            Tasks
+                        </h2>
+
+                        <p>
+                            Control your default task preferences.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="settings-row">
+
+                    <div class="settings-row-info">
+
+                        <strong>
+                            Default priority
+                        </strong>
+
+                        <span>
+                            Priority automatically selected when creating a task.
+                        </span>
+
+                    </div>
+
+
+                    <select
+                        id="priority-setting"
+                        class="settings-select"
+                    >
+
+                        <option value="low">
+                            Low
+                        </option>
+
+                        <option value="medium">
+                            Medium
+                        </option>
+
+                        <option value="high">
+                            High
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </section>
+
+
+            <!-- CALENDAR -->
+
+            <section class="settings-section">
+
+                <div class="settings-section-header">
+
+                    <div>
+
+                        <h2>
+                            Calendar
+                        </h2>
+
+                        <p>
+                            Choose how your calendar week is displayed.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="settings-row">
+
+                    <div class="settings-row-info">
+
+                        <strong>
+                            Week starts on
+                        </strong>
+
+                        <span>
+                            Choose the first day of your calendar week.
+                        </span>
+
+                    </div>
+
+
+                    <select
+                        id="week-start-setting"
+                        class="settings-select"
+                    >
+
+                        <option value="sunday">
+                            Sunday
+                        </option>
+
+                        <option value="monday">
+                            Monday
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </section>
+
+
+            <!-- NOTIFICATIONS -->
+
+            <section class="settings-section">
+
+                <div class="settings-section-header">
+
+                    <div>
+
+                        <h2>
+                            Notifications
+                        </h2>
+
+                        <p>
+                            Control notification preferences.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="settings-row">
+
+                    <div class="settings-row-info">
+
+                        <strong>
+                            Task reminders
+                        </strong>
+
+                        <span>
+                            Allow FlowOS to show task reminder preferences.
+                        </span>
+
+                    </div>
+
+
+                    <label class="toggle">
+
+                        <input
+                            type="checkbox"
+                            id="notifications-setting"
+                        >
+
+                        <span class="toggle-slider"></span>
+
+                    </label>
+
+                </div>
+
+            </section>
+
+
+            <!-- RESET -->
+
+            <section class="settings-section settings-danger-section">
+
+                <div class="settings-section-header">
+
+                    <div>
+
+                        <h2>
+                            Preferences
+                        </h2>
+
+                        <p>
+                            Reset your saved FlowOS preferences.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="settings-row">
+
+                    <div class="settings-row-info">
+
+                        <strong>
+                            Reset preferences
+                        </strong>
+
+                        <span>
+                            Restore all settings to their default values.
+                        </span>
+
+                    </div>
+
+
+                    <button
+                        type="button"
+                        id="reset-settings-button"
+                        class="danger-button"
+                    >
+                        Reset
+                    </button>
+
+                </div>
+
+            </section>
+
+
+            <!-- SAVE MESSAGE -->
+
+            <div
+                id="settings-saved"
+                class="settings-saved"
+            >
+                Settings saved
+            </div>
+
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<script src="theme.js"></script>
+<script src="navigation.js"></script>
+<script src="settings.js"></script>
+
+</body>
+
+</html>
