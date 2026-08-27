@@ -1,0 +1,1204 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Fix My Day | FlowOS</title>
+
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
+
+    <script
+        src="theme.js"
+        defer
+    ></script>
+
+
+    <script
+        src="navigation.js"
+        defer
+    ></script>
+
+
+    <script
+        src="fix-my-day.js"
+        defer
+    ></script>
+
+
+    <style>
+
+        /* ========================================
+           FIX MY DAY
+        ======================================== */
+
+        .fix-day-page {
+
+            width: 100%;
+
+        }
+
+
+        /* ========================================
+           HEADER
+        ======================================== */
+
+        .fix-day-header {
+
+            display: flex;
+
+            align-items: flex-start;
+
+            justify-content: space-between;
+
+            gap: 24px;
+
+            margin-bottom: 28px;
+
+        }
+
+
+        .fix-day-header h1 {
+
+            margin: 0 0 8px;
+
+            font-size: 40px;
+
+            line-height: 1.15;
+
+            color: #172033;
+
+        }
+
+
+        .fix-day-header p {
+
+            margin: 0;
+
+            color: #718096;
+
+            font-size: 16px;
+
+        }
+
+
+        .fix-day-refresh {
+
+            flex-shrink: 0;
+
+        }
+
+
+        /* ========================================
+           SUMMARY
+        ======================================== */
+
+        .fix-day-summary {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(
+                    3,
+                    minmax(0, 1fr)
+                );
+
+            gap: 16px;
+
+            margin-bottom: 32px;
+
+        }
+
+
+        .fix-day-summary-card {
+
+            background: #ffffff;
+
+            border: 1px solid #e4e7ec;
+
+            border-radius: 14px;
+
+            padding: 22px;
+
+            min-height: 120px;
+
+            display: flex;
+
+            flex-direction: column;
+
+            justify-content: space-between;
+
+            box-shadow:
+                0 2px 8px
+                rgba(
+                    16,
+                    24,
+                    40,
+                    0.025
+                );
+
+        }
+
+
+        .fix-day-summary-label {
+
+            color: #667085;
+
+            font-size: 14px;
+
+            font-weight: 500;
+
+        }
+
+
+        .fix-day-summary-value {
+
+            color: #172033;
+
+            font-size: 30px;
+
+            line-height: 1;
+
+        }
+
+
+        /* ========================================
+           SECTION
+        ======================================== */
+
+        .fix-day-section {
+
+            margin-bottom: 34px;
+
+        }
+
+
+        .fix-day-section-header {
+
+            margin-bottom: 14px;
+
+        }
+
+
+        .fix-day-section-header h2 {
+
+            margin: 0 0 6px;
+
+            color: #172033;
+
+            font-size: 21px;
+
+            font-weight: 700;
+
+        }
+
+
+        .fix-day-section-header p {
+
+            margin: 0;
+
+            color: #718096;
+
+            font-size: 14px;
+
+        }
+
+
+        /* ========================================
+           TASK LIST
+        ======================================== */
+
+        .fix-task-list {
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 10px;
+
+        }
+
+
+        .fix-task-card {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 15px;
+
+            background: #ffffff;
+
+            border: 1px solid #e4e7ec;
+
+            border-radius: 13px;
+
+            padding: 17px 18px;
+
+            box-shadow:
+                0 2px 8px
+                rgba(
+                    16,
+                    24,
+                    40,
+                    0.025
+                );
+
+            transition:
+                transform 0.15s ease,
+                border-color 0.15s ease,
+                box-shadow 0.15s ease;
+
+        }
+
+
+        .fix-task-card:hover {
+
+            transform:
+                translateY(-1px);
+
+            border-color:
+                #d5dbe5;
+
+            box-shadow:
+                0 5px 16px
+                rgba(
+                    16,
+                    24,
+                    40,
+                    0.06
+                );
+
+        }
+
+
+        /* ========================================
+           TASK NUMBER
+        ======================================== */
+
+        .fix-task-number {
+
+            width: 34px;
+
+            min-width: 34px;
+
+            height: 34px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            border-radius: 50%;
+
+            background: #f2f4f7;
+
+            color: #344054;
+
+            font-size: 13px;
+
+            font-weight: 700;
+
+        }
+
+
+        /* ========================================
+           TASK CONTENT
+        ======================================== */
+
+        .fix-task-content {
+
+            flex: 1;
+
+            min-width: 0;
+
+        }
+
+
+        .fix-task-title {
+
+            margin-bottom: 8px;
+
+            color: #172033;
+
+            font-size: 15px;
+
+            font-weight: 600;
+
+            overflow-wrap: anywhere;
+
+        }
+
+
+        .fix-task-meta {
+
+            display: flex;
+
+            align-items: center;
+
+            flex-wrap: wrap;
+
+            gap: 7px;
+
+        }
+
+
+        .fix-priority,
+        .fix-due,
+        .fix-duration,
+        .fix-project {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            padding: 4px 8px;
+
+            border-radius: 6px;
+
+            background: #f2f4f7;
+
+            color: #667085;
+
+            font-size: 11px;
+
+            font-weight: 600;
+
+        }
+
+
+        /* ========================================
+           PRIORITIES
+        ======================================== */
+
+        .priority-high {
+
+            background:
+                rgba(
+                    239,
+                    68,
+                    68,
+                    0.10
+                );
+
+            color: #dc2626;
+
+        }
+
+
+        .priority-medium {
+
+            background:
+                rgba(
+                    245,
+                    158,
+                    11,
+                    0.10
+                );
+
+            color: #d97706;
+
+        }
+
+
+        .priority-low {
+
+            background:
+                rgba(
+                    34,
+                    197,
+                    94,
+                    0.10
+                );
+
+            color: #16a34a;
+
+        }
+
+
+        /* ========================================
+           DEADLINES
+        ======================================== */
+
+        .fix-due-overdue {
+
+            background:
+                rgba(
+                    239,
+                    68,
+                    68,
+                    0.10
+                );
+
+            color: #dc2626;
+
+        }
+
+
+        .fix-due-today {
+
+            background:
+                rgba(
+                    239,
+                    68,
+                    68,
+                    0.10
+                );
+
+            color: #dc2626;
+
+        }
+
+
+        .fix-due-tomorrow {
+
+            background:
+                rgba(
+                    245,
+                    158,
+                    11,
+                    0.10
+                );
+
+            color: #d97706;
+
+        }
+
+
+        .fix-due-soon {
+
+            background:
+                rgba(
+                    59,
+                    130,
+                    246,
+                    0.10
+                );
+
+            color: #2563eb;
+
+        }
+
+
+        /* ========================================
+           COMPLETE BUTTON
+        ======================================== */
+
+        .fix-complete-button {
+
+            flex-shrink: 0;
+
+            border: 1px solid #d9dee7;
+
+            border-radius: 8px;
+
+            background: #ffffff;
+
+            color: #475467;
+
+            padding: 8px 12px;
+
+            font-size: 12px;
+
+            font-weight: 600;
+
+            cursor: pointer;
+
+            transition:
+                0.15s ease;
+
+        }
+
+
+        .fix-complete-button:hover {
+
+            border-color: #22c55e;
+
+            color: #16a34a;
+
+            background:
+                rgba(
+                    34,
+                    197,
+                    94,
+                    0.04
+                );
+
+        }
+
+
+        .fix-complete-button:disabled {
+
+            opacity: 0.55;
+
+            cursor: wait;
+
+        }
+
+
+        /* ========================================
+           EMPTY / ERROR
+        ======================================== */
+
+        .fix-day-empty {
+
+            background: #ffffff;
+
+            border: 1px dashed #d9dee7;
+
+            border-radius: 14px;
+
+            padding: 54px 24px;
+
+            text-align: center;
+
+        }
+
+
+        .empty-state-icon {
+
+            width: 46px;
+
+            height: 46px;
+
+            margin:
+                0 auto 14px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            border-radius: 50%;
+
+            background: #f2f4f7;
+
+            color: #475467;
+
+            font-size: 20px;
+
+            font-weight: 700;
+
+        }
+
+
+        .fix-day-empty h2 {
+
+            margin:
+                0 0 8px;
+
+            color: #172033;
+
+            font-size: 20px;
+
+        }
+
+
+        .fix-day-empty p {
+
+            margin:
+                0 0 20px;
+
+            color: #718096;
+
+            font-size: 14px;
+
+        }
+
+
+        .fix-day-loading {
+
+            padding: 40px 20px;
+
+            border:
+                1px dashed #d9dee7;
+
+            border-radius: 13px;
+
+            text-align: center;
+
+            color: #718096;
+
+            font-size: 14px;
+
+        }
+
+
+        /* ========================================
+           DARK THEME
+        ======================================== */
+
+        html.dark-theme
+        .fix-day-header h1,
+
+        body.dark-theme
+        .fix-day-header h1 {
+
+            color: #f1f5f9;
+
+        }
+
+
+        html.dark-theme
+        .fix-day-header p,
+
+        body.dark-theme
+        .fix-day-header p {
+
+            color: #9eabbf;
+
+        }
+
+
+        html.dark-theme
+        .fix-day-summary-card,
+
+        body.dark-theme
+        .fix-day-summary-card,
+
+        html.dark-theme
+        .fix-task-card,
+
+        body.dark-theme
+        .fix-task-card,
+
+        html.dark-theme
+        .fix-day-empty,
+
+        body.dark-theme
+        .fix-day-empty {
+
+            background: #151922;
+
+            border-color: #292f3b;
+
+        }
+
+
+        html.dark-theme
+        .fix-day-summary-label,
+
+        body.dark-theme
+        .fix-day-summary-label {
+
+            color: #9eabbf;
+
+        }
+
+
+        html.dark-theme
+        .fix-day-summary-value,
+
+        body.dark-theme
+        .fix-day-summary-value,
+
+        html.dark-theme
+        .fix-day-section-header h2,
+
+        body.dark-theme
+        .fix-day-section-header h2,
+
+        html.dark-theme
+        .fix-task-title,
+
+        body.dark-theme
+        .fix-task-title,
+
+        html.dark-theme
+        .fix-day-empty h2,
+
+        body.dark-theme
+        .fix-day-empty h2 {
+
+            color: #f1f5f9;
+
+        }
+
+
+        html.dark-theme
+        .fix-day-section-header p,
+
+        body.dark-theme
+        .fix-day-section-header p,
+
+        html.dark-theme
+        .fix-day-empty p,
+
+        body.dark-theme
+        .fix-day-empty p,
+
+        html.dark-theme
+        .fix-day-loading,
+
+        body.dark-theme
+        .fix-day-loading {
+
+            color: #9eabbf;
+
+        }
+
+
+        html.dark-theme
+        .fix-task-number,
+
+        body.dark-theme
+        .fix-task-number {
+
+            background: #202632;
+
+            color: #cbd5e1;
+
+        }
+
+
+        html.dark-theme
+        .fix-duration,
+
+        body.dark-theme
+        .fix-duration,
+
+        html.dark-theme
+        .fix-project,
+
+        body.dark-theme
+        .fix-project {
+
+            background: #202632;
+
+            color: #aeb8c9;
+
+        }
+
+
+        html.dark-theme
+        .fix-complete-button,
+
+        body.dark-theme
+        .fix-complete-button {
+
+            background: #151922;
+
+            border-color: #394252;
+
+            color: #cbd5e1;
+
+        }
+
+
+        html.dark-theme
+        .fix-day-empty,
+
+        body.dark-theme
+        .fix-day-empty,
+
+        html.dark-theme
+        .fix-day-loading,
+
+        body.dark-theme
+        .fix-day-loading {
+
+            border-color: #394252;
+
+        }
+
+
+        html.dark-theme
+        .empty-state-icon,
+
+        body.dark-theme
+        .empty-state-icon {
+
+            background: #202632;
+
+            color: #cbd5e1;
+
+        }
+
+
+        /* ========================================
+           RESPONSIVE
+        ======================================== */
+
+        @media (max-width: 800px) {
+
+            .fix-day-summary {
+
+                grid-template-columns: 1fr;
+
+            }
+
+
+            .fix-day-header {
+
+                flex-direction: column;
+
+            }
+
+
+            .fix-day-refresh {
+
+                width: 100%;
+
+            }
+
+
+            .fix-task-card {
+
+                align-items: flex-start;
+
+                flex-wrap: wrap;
+
+            }
+
+
+            .fix-task-content {
+
+                flex-basis:
+                    calc(
+                        100% - 50px
+                    );
+
+            }
+
+
+            .fix-complete-button {
+
+                margin-left: 49px;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+    <div class="app">
+
+
+        <!-- =====================================
+             SIDEBAR
+        ====================================== -->
+
+        <aside class="sidebar">
+
+            <div class="logo">
+                FlowOS
+            </div>
+
+
+            <nav class="navigation">
+
+                <a
+                    href="/"
+                    class="nav-item"
+                >
+                    Dashboard
+                </a>
+
+
+                <a
+                    href="/tasks"
+                    class="nav-item"
+                >
+                    Tasks
+                </a>
+
+
+                <a
+                    href="/projects"
+                    class="nav-item"
+                >
+                    Projects
+                </a>
+
+
+                <a
+                    href="/calendar"
+                    class="nav-item"
+                >
+                    Calendar
+                </a>
+
+
+                <a
+                    href="/fix-my-day.html"
+                    class="nav-item"
+                >
+                    Fix My Day
+                </a>
+
+
+                <a
+                    href="/analytics"
+                    class="nav-item"
+                >
+                    Analytics
+                </a>
+
+            </nav>
+
+
+            <div class="sidebar-bottom">
+
+                <a
+                    href="/settings"
+                    class="nav-item"
+                >
+                    Settings
+                </a>
+
+            </div>
+
+        </aside>
+
+
+        <!-- =====================================
+             MAIN CONTENT
+        ====================================== -->
+
+        <main class="main-content fix-day-page">
+
+
+            <header class="page-header">
+
+                <div>
+
+                    <h1>
+                        Fix My Day
+                    </h1>
+
+                    <p>
+                        Focus on what matters most today.
+                    </p>
+
+                </div>
+
+
+                <button
+                    id="refresh-day-button"
+                    class="secondary-button fix-day-refresh"
+                    type="button"
+                >
+                    Refresh
+                </button>
+
+            </header>
+
+
+            <!-- =====================================
+                 SUMMARY
+            ====================================== -->
+
+            <section
+                class="fix-day-summary"
+                aria-label="Today's summary"
+            >
+
+                <div class="fix-day-summary-card">
+
+                    <span class="fix-day-summary-label">
+                        Focus Tasks
+                    </span>
+
+                    <strong
+                        id="focus-task-count"
+                        class="fix-day-summary-value"
+                    >
+                        0
+                    </strong>
+
+                </div>
+
+
+                <div class="fix-day-summary-card">
+
+                    <span class="fix-day-summary-label">
+                        Focus Time
+                    </span>
+
+                    <strong
+                        id="focus-time"
+                        class="fix-day-summary-value"
+                    >
+                        0m
+                    </strong>
+
+                </div>
+
+
+                <div class="fix-day-summary-card">
+
+                    <span class="fix-day-summary-label">
+                        Due Today
+                    </span>
+
+                    <strong
+                        id="due-today-count"
+                        class="fix-day-summary-value"
+                    >
+                        0
+                    </strong>
+
+                </div>
+
+            </section>
+
+
+            <!-- =====================================
+                 TODAY'S FOCUS
+            ====================================== -->
+
+            <section class="fix-day-section">
+
+                <div class="fix-day-section-header">
+
+                    <h2>
+                        Today's Focus
+                    </h2>
+
+                    <p>
+                        The tasks FlowOS recommends you tackle first.
+                    </p>
+
+                </div>
+
+
+                <div
+                    id="focus-task-list"
+                    class="fix-task-list"
+                >
+
+                    <div class="fix-day-loading">
+                        Loading your day...
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =====================================
+                 OTHER TASKS
+            ====================================== -->
+
+            <section
+                id="other-tasks-section"
+                class="fix-day-section"
+            >
+
+                <div class="fix-day-section-header">
+
+                    <h2>
+                        Other Tasks
+                    </h2>
+
+                    <p>
+                        These can wait until your focus work is complete.
+                    </p>
+
+                </div>
+
+
+                <div
+                    id="other-task-list"
+                    class="fix-task-list"
+                >
+                </div>
+
+            </section>
+
+
+            <!-- =====================================
+                 EMPTY STATE
+            ====================================== -->
+
+            <section
+                id="empty-state"
+                class="fix-day-empty"
+                hidden
+            >
+
+                <div class="empty-state-icon">
+                    ✓
+                </div>
+
+
+                <h2>
+                    Your day is clear
+                </h2>
+
+
+                <p>
+                    You have no unfinished tasks right now.
+                </p>
+
+
+                <a
+                    href="/tasks"
+                    class="primary-button"
+                >
+                    Add a Task
+                </a>
+
+            </section>
+
+
+            <!-- =====================================
+                 ERROR STATE
+            ====================================== -->
+
+            <section
+                id="error-state"
+                class="fix-day-empty"
+                hidden
+            >
+
+                <div class="empty-state-icon">
+                    !
+                </div>
+
+
+                <h2>
+                    Couldn't load your tasks
+                </h2>
+
+
+                <p id="error-message">
+                    Something went wrong while loading your tasks.
+                </p>
+
+
+                <button
+                    id="retry-button"
+                    class="primary-button"
+                    type="button"
+                >
+                    Try Again
+                </button>
+
+            </section>
+
+        </main>
+
+    </div>
+
+</body>
+
+</html>
