@@ -2,17 +2,6 @@
 
 > A full-stack personal productivity workspace designed to help users plan, organize, and understand their work.
 
-### 🌐 Live Demo
-
-https://flowos-wome.onrender.com
-
-📸 Preview
-
-<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/35fdcc84-fecc-4003-9124-a571dc2b2bf9" />
-
-
----
-
 ## 📌 Overview
 
 FlowOS is a full-stack productivity application that brings tasks, projects, deadlines, calendar planning, analytics, and daily prioritization into one workspace.
@@ -24,6 +13,19 @@ Instead of treating task management as simply a checklist, FlowOS helps users an
 The application provides a personalized workspace for each authenticated user, ensuring that tasks, projects, deadlines, calendar data, and analytics remain isolated between accounts.
 
 ---
+
+### 🌐 Live Demo
+
+https://flowos-wome.onrender.com
+
+## 📸 Preview
+
+<img width="1906" height="900" alt="Screenshot (1022)" src="https://github.com/user-attachments/assets/6349dfba-7381-472b-94b0-e98666289049" />
+
+
+
+---
+
 
 ## ✨ Features
 
