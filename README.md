@@ -20,8 +20,7 @@ https://flowos-wome.onrender.com
 
 ## 📸 Preview
 
-<img width="1906" height="900" alt="Screenshot (1022)" src="https://github.com/user-attachments/assets/6349dfba-7381-472b-94b0-e98666289049" />
-
+<img width="1920" height="872" alt="Screenshot (1025)" src="https://github.com/user-attachments/assets/5cf137cd-29ff-4326-b8f5-69d5dff86924" />
 
 
 ---
