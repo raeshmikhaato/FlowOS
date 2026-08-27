@@ -334,4 +334,8 @@ FlowOS currently provides a complete authenticated productivity workflow from ta
 
 ## 👤 Author
 
-Built as a full-stack web development project focused on practical software engineering, product thinking, and user experience.
+Raeshmikhaa T O
+
+Electronics and Telecommunications Engineering Student
+
+GitHub: https://github.com/raeshmikhaato
